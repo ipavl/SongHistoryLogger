@@ -33,7 +33,7 @@
             this.fbdFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.txtOutputFile = new System.Windows.Forms.TextBox();
             this.cmdBrowse = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpTrackInfo = new System.Windows.Forms.GroupBox();
             this.lblDuration = new System.Windows.Forms.Label();
             this.lblAlbum = new System.Windows.Forms.Label();
             this.lblArtist = new System.Windows.Forms.Label();
@@ -42,48 +42,49 @@
             this.tmrUpdateFile = new System.Windows.Forms.Timer(this.components);
             this.chkLog = new System.Windows.Forms.CheckBox();
             this.lblLastLogged = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grpTrackInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblOutput
             // 
             this.lblOutput.AutoSize = true;
-            this.lblOutput.Location = new System.Drawing.Point(13, 15);
+            this.lblOutput.Location = new System.Drawing.Point(12, 9);
             this.lblOutput.Name = "lblOutput";
-            this.lblOutput.Size = new System.Drawing.Size(58, 13);
+            this.lblOutput.Size = new System.Drawing.Size(71, 13);
             this.lblOutput.TabIndex = 0;
-            this.lblOutput.Text = "Output file:";
+            this.lblOutput.Text = "Output folder:";
             // 
             // txtOutputFile
             // 
-            this.txtOutputFile.Location = new System.Drawing.Point(76, 12);
+            this.txtOutputFile.Location = new System.Drawing.Point(89, 6);
             this.txtOutputFile.Name = "txtOutputFile";
-            this.txtOutputFile.Size = new System.Drawing.Size(250, 20);
+            this.txtOutputFile.Size = new System.Drawing.Size(158, 20);
             this.txtOutputFile.TabIndex = 1;
             // 
             // cmdBrowse
             // 
-            this.cmdBrowse.Location = new System.Drawing.Point(332, 9);
+            this.cmdBrowse.Location = new System.Drawing.Point(339, 3);
             this.cmdBrowse.Name = "cmdBrowse";
-            this.cmdBrowse.Size = new System.Drawing.Size(71, 24);
+            this.cmdBrowse.Size = new System.Drawing.Size(63, 24);
             this.cmdBrowse.TabIndex = 2;
             this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
             this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
             // 
-            // groupBox1
+            // grpTrackInfo
             // 
-            this.groupBox1.Controls.Add(this.lblDuration);
-            this.groupBox1.Controls.Add(this.lblAlbum);
-            this.groupBox1.Controls.Add(this.lblArtist);
-            this.groupBox1.Controls.Add(this.lblTrack);
-            this.groupBox1.ForeColor = System.Drawing.Color.Blue;
-            this.groupBox1.Location = new System.Drawing.Point(12, 39);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(390, 90);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Current Track Information";
+            this.grpTrackInfo.Controls.Add(this.lblDuration);
+            this.grpTrackInfo.Controls.Add(this.lblAlbum);
+            this.grpTrackInfo.Controls.Add(this.lblArtist);
+            this.grpTrackInfo.Controls.Add(this.lblTrack);
+            this.grpTrackInfo.ForeColor = System.Drawing.Color.Blue;
+            this.grpTrackInfo.Location = new System.Drawing.Point(12, 39);
+            this.grpTrackInfo.Name = "grpTrackInfo";
+            this.grpTrackInfo.Size = new System.Drawing.Size(390, 90);
+            this.grpTrackInfo.TabIndex = 3;
+            this.grpTrackInfo.TabStop = false;
+            this.grpTrackInfo.Text = "Current Track Information";
             // 
             // lblDuration
             // 
@@ -156,14 +157,24 @@
             this.lblLastLogged.TabIndex = 5;
             this.lblLastLogged.Text = "Last logged at: Not logged yet";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(248, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(85, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "/songhistory.htm";
+            // 
             // SongHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(414, 160);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblLastLogged);
             this.Controls.Add(this.chkLog);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.grpTrackInfo);
             this.Controls.Add(this.cmdBrowse);
             this.Controls.Add(this.txtOutputFile);
             this.Controls.Add(this.lblOutput);
@@ -171,8 +182,8 @@
             this.MaximizeBox = false;
             this.Name = "SongHistory";
             this.Text = "Song History Logger (www.github.com/ipavl) - v1.0";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpTrackInfo.ResumeLayout(false);
+            this.grpTrackInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,7 +195,7 @@
         private System.Windows.Forms.FolderBrowserDialog fbdFolderBrowser;
         private System.Windows.Forms.TextBox txtOutputFile;
         private System.Windows.Forms.Button cmdBrowse;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpTrackInfo;
         private System.Windows.Forms.Label lblDuration;
         private System.Windows.Forms.Label lblAlbum;
         private System.Windows.Forms.Label lblArtist;
@@ -193,6 +204,7 @@
         private System.Windows.Forms.Timer tmrUpdateFile;
         private System.Windows.Forms.CheckBox chkLog;
         private System.Windows.Forms.Label lblLastLogged;
+        private System.Windows.Forms.Label label1;
     }
 }
 
