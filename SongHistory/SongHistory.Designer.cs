@@ -38,7 +38,10 @@
             this.lblAlbum = new System.Windows.Forms.Label();
             this.lblArtist = new System.Windows.Forms.Label();
             this.lblTrack = new System.Windows.Forms.Label();
-            this.tmrUpdate = new System.Windows.Forms.Timer(this.components);
+            this.tmrUpdateInfo = new System.Windows.Forms.Timer(this.components);
+            this.tmrUpdateFile = new System.Windows.Forms.Timer(this.components);
+            this.chkLog = new System.Windows.Forms.CheckBox();
+            this.lblLastLogged = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -122,23 +125,52 @@
             this.lblTrack.TabIndex = 0;
             this.lblTrack.Text = "Track:";
             // 
-            // tmrUpdate
+            // tmrUpdateInfo
             // 
-            this.tmrUpdate.Enabled = true;
-            this.tmrUpdate.Interval = 1000;
-            this.tmrUpdate.Tick += new System.EventHandler(this.tmrUpdate_Tick);
+            this.tmrUpdateInfo.Enabled = true;
+            this.tmrUpdateInfo.Interval = 1000;
+            this.tmrUpdateInfo.Tick += new System.EventHandler(this.tmrUpdate_Tick);
+            // 
+            // tmrUpdateFile
+            // 
+            this.tmrUpdateFile.Interval = 60000;
+            this.tmrUpdateFile.Tick += new System.EventHandler(this.tmrUpdateFile_Tick);
+            // 
+            // chkLog
+            // 
+            this.chkLog.AutoSize = true;
+            this.chkLog.Location = new System.Drawing.Point(12, 135);
+            this.chkLog.Name = "chkLog";
+            this.chkLog.Size = new System.Drawing.Size(177, 17);
+            this.chkLog.TabIndex = 4;
+            this.chkLog.Text = "Log Songs to File (every minute)";
+            this.chkLog.UseVisualStyleBackColor = true;
+            this.chkLog.CheckedChanged += new System.EventHandler(this.chkLog_CheckedChanged);
+            // 
+            // lblLastLogged
+            // 
+            this.lblLastLogged.AutoSize = true;
+            this.lblLastLogged.Location = new System.Drawing.Point(199, 136);
+            this.lblLastLogged.Name = "lblLastLogged";
+            this.lblLastLogged.Size = new System.Drawing.Size(149, 13);
+            this.lblLastLogged.TabIndex = 5;
+            this.lblLastLogged.Text = "Last logged at: Not logged yet";
             // 
             // SongHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 171);
+            this.ClientSize = new System.Drawing.Size(414, 160);
+            this.Controls.Add(this.lblLastLogged);
+            this.Controls.Add(this.chkLog);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.cmdBrowse);
             this.Controls.Add(this.txtOutputFile);
             this.Controls.Add(this.lblOutput);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "SongHistory";
-            this.Text = "Song History Logger";
+            this.Text = "Song History Logger (www.github.com/ipavl) - v1.0";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -157,7 +189,10 @@
         private System.Windows.Forms.Label lblAlbum;
         private System.Windows.Forms.Label lblArtist;
         private System.Windows.Forms.Label lblTrack;
-        private System.Windows.Forms.Timer tmrUpdate;
+        private System.Windows.Forms.Timer tmrUpdateInfo;
+        private System.Windows.Forms.Timer tmrUpdateFile;
+        private System.Windows.Forms.CheckBox chkLog;
+        private System.Windows.Forms.Label lblLastLogged;
     }
 }
 
