@@ -7,3 +7,6 @@ C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.Properties.
 C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.csproj.GenerateResource.Cache
 C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.exe
 C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.pdb
+C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\Interop.iTunesLib.dll
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\Interop.iTunesLib.dll
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.csproj.ResolveComReference.cache

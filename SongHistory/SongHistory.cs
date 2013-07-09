@@ -13,9 +13,10 @@ namespace SongHistory
 {
     public partial class SongHistory : Form
     {
+        IiTunes iTunes = new iTunesAppClass();
+
         public SongHistory()
         {
-            IiTunes iTunes = new iTunesAppClass();
             InitializeComponent();
         }
 
@@ -26,6 +27,14 @@ namespace SongHistory
             {
                 txtOutputFile.Text = fbdFolderBrowser.SelectedPath + "\\songhistory.htm";
             }
+        }
+
+        private void tmrUpdate_Tick(object sender, EventArgs e)
+        {
+            lblTrack.Text = "Track: " + iTunes.CurrentTrack.Name;
+            lblArtist.Text = "Artist: " + iTunes.CurrentTrack.Artist;
+            lblAlbum.Text = "Album: " + iTunes.CurrentTrack.Album;
+            lblDuration.Text = "Duration: " + iTunes.CurrentTrack.Time;
         }
     }
 }
