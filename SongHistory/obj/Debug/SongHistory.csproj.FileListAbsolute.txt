@@ -1,0 +1,9 @@
+C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\SongHistory.exe.config
+C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\SongHistory.exe
+C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\SongHistory.pdb
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.csprojResolveAssemblyReference.cache
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.SongHistory.resources
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.Properties.Resources.resources
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.csproj.GenerateResource.Cache
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.exe
+C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.pdb
