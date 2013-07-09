@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using iTunesLib;
 
 namespace SongHistory
 {
@@ -14,6 +15,7 @@ namespace SongHistory
     {
         public SongHistory()
         {
+            IiTunes iTunes = new iTunesAppClass();
             InitializeComponent();
         }
 
