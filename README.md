@@ -14,6 +14,9 @@ an extension of my previous "iTunes Play Count Setter" application (although thi
 written from scratch and is in C# instead of VB.NET), but that's the practical use case
 I came up with. :P
 
+Sample output screenshot: http://i.imgur.com/TPB7xoo.png
+(Note to self: Japanese characters don't show up correctly.)
+
 -- ipavl
 
 Known Bugs
