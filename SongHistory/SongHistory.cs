@@ -97,7 +97,7 @@ namespace SongHistory
                     outFile.WriteLine("</td>");
                     outFile.WriteLine("<td>");
                     outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" + 
-                        iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Album + " " + 
+                        iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " + 
                         iTunes.CurrentTrack.Album +"\">Lookup</a>");
                     outFile.WriteLine("</td>");
                     outFile.WriteLine("</tr>");
@@ -144,13 +144,13 @@ namespace SongHistory
                         // Create table header
                         outFile.WriteLine("<table border=\"1\" width=\"100%\">");
                         outFile.WriteLine("<tr>");
-                        outFile.WriteLine("<th width=\"10%\">");
+                        outFile.WriteLine("<th width=\"12%\">");
                         outFile.WriteLine("Time");
                         outFile.WriteLine("</th>");
                         outFile.WriteLine("<th width=\"20%\">");
                         outFile.WriteLine("Song");
                         outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"10%\">");
+                        outFile.WriteLine("<th width=\"8%\">");
                         outFile.WriteLine("Duration");
                         outFile.WriteLine("</th>");
                         outFile.WriteLine("<th width=\"20%\">");
