@@ -95,6 +95,11 @@ namespace SongHistory
                     outFile.WriteLine("<td>");
                     outFile.WriteLine(iTunes.CurrentTrack.Album);
                     outFile.WriteLine("</td>");
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" + 
+                        iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Album + " " + 
+                        iTunes.CurrentTrack.Album +"\">Lookup</a>");
+                    outFile.WriteLine("</td>");
                     outFile.WriteLine("</tr>");
 
                     // Update last logged at label
@@ -145,7 +150,7 @@ namespace SongHistory
                         outFile.WriteLine("<th width=\"20%\">");
                         outFile.WriteLine("Song");
                         outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"5%\">");
+                        outFile.WriteLine("<th width=\"10%\">");
                         outFile.WriteLine("Duration");
                         outFile.WriteLine("</th>");
                         outFile.WriteLine("<th width=\"20%\">");
@@ -153,6 +158,9 @@ namespace SongHistory
                         outFile.WriteLine("</th>");
                         outFile.WriteLine("<th width=\"20%\">");
                         outFile.WriteLine("Album");
+                        outFile.WriteLine("</th>");
+                        outFile.WriteLine("<th width=\"20%\">");
+                        outFile.WriteLine("YouTube Search");
                         outFile.WriteLine("</th>");
                         outFile.WriteLine("</tr>");
 
@@ -169,6 +177,7 @@ namespace SongHistory
             }
             catch (Exception ex)
             {
+                Debug.Print(ex.Message);
                 tmrUpdateFile.Enabled = false;
                 chkLog.Checked = false;
             }

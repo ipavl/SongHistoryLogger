@@ -164,7 +164,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(85, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "/songhistory.htm";
+            this.label1.Text = "\\songhistory.htm";
             // 
             // SongHistory
             // 
@@ -181,7 +181,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "SongHistory";
-            this.Text = "Song History Logger (www.github.com/ipavl) - v1.0";
+            this.Text = "Song History Logger (www.github.com/ipavl) - v1.1";
             this.grpTrackInfo.ResumeLayout(false);
             this.grpTrackInfo.PerformLayout();
             this.ResumeLayout(false);
