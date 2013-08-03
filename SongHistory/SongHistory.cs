@@ -45,6 +45,8 @@ namespace SongHistory
         private String lastAlbum;
         private String lastDuration;
 
+        private String lastPlaylist;
+
         public SongHistory()
         {
             InitializeComponent();
@@ -211,13 +213,21 @@ namespace SongHistory
 
                     if (!tmrUpdateFile.Enabled)
                     {
-                        outFile.WriteLine("Playlist: " + iTunes.CurrentPlaylist.Name);
+                        // Disable the folder selection controls
+                        txtOutputFile.ReadOnly = true;
+                        cmdBrowse.Enabled = false;
+
+                        // Get playlist information (TODO: Make this update on playlist change)
+                        lastPlaylist = iTunes.CurrentPlaylist.Name;
+                        outFile.WriteLine("Playlist: " + lastPlaylist + " (" + 
+                            iTunes.CurrentPlaylist.Time + " hours long)");
+
                         // Create table header
                         outFile.WriteLine("<table border=\"1\" width=\"100%\">");
                         outFile.WriteLine("<tr>");
 
                         // Log time
-                        outFile.WriteLine("<th width=\"12%\">");
+                        outFile.WriteLine("<th width=\"15%\">");
                         outFile.WriteLine("Time");
                         outFile.WriteLine("</th>");
 
@@ -232,7 +242,7 @@ namespace SongHistory
                         // Song duration
                         if (chkDuration.Checked)
                         {
-                            outFile.WriteLine("<th width=\"8%\">");
+                            outFile.WriteLine("<th width=\"5%\">");
                             outFile.WriteLine("Duration");
                             outFile.WriteLine("</th>");
                         }
@@ -256,7 +266,7 @@ namespace SongHistory
                         // Genre
                         if (chkGenre.Checked)
                         {
-                            outFile.WriteLine("<th width=\"10%\">");
+                            outFile.WriteLine("<th width=\"15%\">");
                             outFile.WriteLine("Genre");
                             outFile.WriteLine("</th>");
                         }
@@ -264,7 +274,7 @@ namespace SongHistory
                         // Song lookup
                         if (chkLookup.Checked)
                         {
-                            outFile.WriteLine("<th width=\"20%\">");
+                            outFile.WriteLine("<th width=\"10%\">");
                             outFile.WriteLine("YouTube Search");
                             outFile.WriteLine("</th>");
                             outFile.WriteLine("</tr>");
@@ -276,10 +286,12 @@ namespace SongHistory
                     else
                     {
                         // End table
-                        outFile.WriteLine("<table>");
+                        outFile.WriteLine("</table>");
 
                         tmrUpdateFile.Enabled = false;
+                        txtOutputFile.ReadOnly = false;
                         grpOptions.Enabled = true;
+                        cmdBrowse.Enabled = true;
                     }
                 }
             }

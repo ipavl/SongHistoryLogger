@@ -1,6 +1,18 @@
 Changelog
 ---------
 
+* v1.4.3 - August 3rd, 2013
+
+	- playlist length is now shown in log file
+	
+	- adjusted output column size
+	
+	- the option to select the output folder is now disabled when the program is logging
+
+* v1.4.1/v1.4.2 - August 3rd, 2013
+
+	- bug fixes
+	
 * v1.4 - August 2nd, 2013
     
 	- rearranged program interface to incorporate an "options" area
@@ -20,6 +32,8 @@ Changelog
 * v1.2 - August 2nd, 2013
 
 	- added options to allow the user to specify which fields should be logged
+	
+	- current playlist is now shown in log file
 
 * v1.1 - July 9th, 2013
 
