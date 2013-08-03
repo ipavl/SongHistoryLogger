@@ -43,7 +43,15 @@
             this.chkLog = new System.Windows.Forms.CheckBox();
             this.lblLastLogged = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.grpOptions = new System.Windows.Forms.GroupBox();
+            this.chkLookup = new System.Windows.Forms.CheckBox();
+            this.chkGenre = new System.Windows.Forms.CheckBox();
+            this.chkAlbum = new System.Windows.Forms.CheckBox();
+            this.chkArtist = new System.Windows.Forms.CheckBox();
+            this.chkDuration = new System.Windows.Forms.CheckBox();
+            this.chkName = new System.Windows.Forms.CheckBox();
             this.grpTrackInfo.SuspendLayout();
+            this.grpOptions.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblOutput
@@ -151,7 +159,7 @@
             // lblLastLogged
             // 
             this.lblLastLogged.AutoSize = true;
-            this.lblLastLogged.Location = new System.Drawing.Point(199, 136);
+            this.lblLastLogged.Location = new System.Drawing.Point(212, 136);
             this.lblLastLogged.Name = "lblLastLogged";
             this.lblLastLogged.Size = new System.Drawing.Size(149, 13);
             this.lblLastLogged.TabIndex = 5;
@@ -166,11 +174,99 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "\\songhistory.htm";
             // 
+            // grpOptions
+            // 
+            this.grpOptions.Controls.Add(this.chkLookup);
+            this.grpOptions.Controls.Add(this.chkGenre);
+            this.grpOptions.Controls.Add(this.chkAlbum);
+            this.grpOptions.Controls.Add(this.chkArtist);
+            this.grpOptions.Controls.Add(this.chkDuration);
+            this.grpOptions.Controls.Add(this.chkName);
+            this.grpOptions.Location = new System.Drawing.Point(12, 159);
+            this.grpOptions.Name = "grpOptions";
+            this.grpOptions.Size = new System.Drawing.Size(287, 70);
+            this.grpOptions.TabIndex = 7;
+            this.grpOptions.TabStop = false;
+            this.grpOptions.Text = "Include the following:";
+            // 
+            // chkLookup
+            // 
+            this.chkLookup.AutoSize = true;
+            this.chkLookup.Checked = true;
+            this.chkLookup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkLookup.Location = new System.Drawing.Point(193, 42);
+            this.chkLookup.Name = "chkLookup";
+            this.chkLookup.Size = new System.Drawing.Size(86, 17);
+            this.chkLookup.TabIndex = 7;
+            this.chkLookup.Text = "Song lookup";
+            this.chkLookup.UseVisualStyleBackColor = true;
+            // 
+            // chkGenre
+            // 
+            this.chkGenre.AutoSize = true;
+            this.chkGenre.Checked = true;
+            this.chkGenre.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkGenre.Location = new System.Drawing.Point(193, 19);
+            this.chkGenre.Name = "chkGenre";
+            this.chkGenre.Size = new System.Drawing.Size(55, 17);
+            this.chkGenre.TabIndex = 5;
+            this.chkGenre.Text = "Genre";
+            this.chkGenre.UseVisualStyleBackColor = true;
+            // 
+            // chkAlbum
+            // 
+            this.chkAlbum.AutoSize = true;
+            this.chkAlbum.Checked = true;
+            this.chkAlbum.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAlbum.Location = new System.Drawing.Point(100, 42);
+            this.chkAlbum.Name = "chkAlbum";
+            this.chkAlbum.Size = new System.Drawing.Size(55, 17);
+            this.chkAlbum.TabIndex = 3;
+            this.chkAlbum.Text = "Album";
+            this.chkAlbum.UseVisualStyleBackColor = true;
+            // 
+            // chkArtist
+            // 
+            this.chkArtist.AutoSize = true;
+            this.chkArtist.Checked = true;
+            this.chkArtist.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkArtist.Location = new System.Drawing.Point(100, 19);
+            this.chkArtist.Name = "chkArtist";
+            this.chkArtist.Size = new System.Drawing.Size(49, 17);
+            this.chkArtist.TabIndex = 2;
+            this.chkArtist.Text = "Artist";
+            this.chkArtist.UseVisualStyleBackColor = true;
+            // 
+            // chkDuration
+            // 
+            this.chkDuration.AutoSize = true;
+            this.chkDuration.Checked = true;
+            this.chkDuration.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDuration.Location = new System.Drawing.Point(9, 42);
+            this.chkDuration.Name = "chkDuration";
+            this.chkDuration.Size = new System.Drawing.Size(66, 17);
+            this.chkDuration.TabIndex = 1;
+            this.chkDuration.Text = "Duration";
+            this.chkDuration.UseVisualStyleBackColor = true;
+            // 
+            // chkName
+            // 
+            this.chkName.AutoSize = true;
+            this.chkName.Checked = true;
+            this.chkName.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkName.Location = new System.Drawing.Point(9, 19);
+            this.chkName.Name = "chkName";
+            this.chkName.Size = new System.Drawing.Size(82, 17);
+            this.chkName.TabIndex = 0;
+            this.chkName.Text = "Song Name";
+            this.chkName.UseVisualStyleBackColor = true;
+            // 
             // SongHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 160);
+            this.ClientSize = new System.Drawing.Size(414, 241);
+            this.Controls.Add(this.grpOptions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblLastLogged);
             this.Controls.Add(this.chkLog);
@@ -181,9 +277,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "SongHistory";
-            this.Text = "Song History Logger (www.github.com/ipavl) - v1.1";
+            this.Text = "Song History Logger (www.github.com/ipavl) - v1.2";
             this.grpTrackInfo.ResumeLayout(false);
             this.grpTrackInfo.PerformLayout();
+            this.grpOptions.ResumeLayout(false);
+            this.grpOptions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -205,6 +303,13 @@
         private System.Windows.Forms.CheckBox chkLog;
         private System.Windows.Forms.Label lblLastLogged;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox grpOptions;
+        private System.Windows.Forms.CheckBox chkLookup;
+        private System.Windows.Forms.CheckBox chkGenre;
+        private System.Windows.Forms.CheckBox chkAlbum;
+        private System.Windows.Forms.CheckBox chkArtist;
+        private System.Windows.Forms.CheckBox chkDuration;
+        private System.Windows.Forms.CheckBox chkName;
     }
 }
 

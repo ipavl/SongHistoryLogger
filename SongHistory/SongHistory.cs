@@ -83,23 +83,58 @@ namespace SongHistory
                     outFile.WriteLine("<td>");
                     outFile.WriteLine(DateTime.Now);
                     outFile.WriteLine("</td>");
-                    outFile.WriteLine("<td>");
-                    outFile.WriteLine(iTunes.CurrentTrack.Name);
-                    outFile.WriteLine("</td>");
-                    outFile.WriteLine("<td>");
-                    outFile.WriteLine(iTunes.CurrentTrack.Time);
-                    outFile.WriteLine("</td>");
-                    outFile.WriteLine("<td>");
-                    outFile.WriteLine(iTunes.CurrentTrack.Artist);
-                    outFile.WriteLine("</td>");
-                    outFile.WriteLine("<td>");
-                    outFile.WriteLine(iTunes.CurrentTrack.Album);
-                    outFile.WriteLine("</td>");
-                    outFile.WriteLine("<td>");
-                    outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" + 
-                        iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " + 
-                        iTunes.CurrentTrack.Album +"\">Lookup</a>");
-                    outFile.WriteLine("</td>");
+
+                    // Song name
+                    if (chkName.Checked)
+                    {
+                        outFile.WriteLine("<td>");
+                        outFile.WriteLine(iTunes.CurrentTrack.Name);
+                        outFile.WriteLine("</td>");
+                    }
+
+                    // Song duration
+                    if (chkDuration.Checked)
+                    {
+                        outFile.WriteLine("<td>");
+                        outFile.WriteLine(iTunes.CurrentTrack.Time);
+                        outFile.WriteLine("</td>");
+                    }
+                    
+                    // Song artist
+                    if (chkArtist.Checked)
+                    {
+                        outFile.WriteLine("<td>");
+                        outFile.WriteLine(iTunes.CurrentTrack.Artist);
+                        outFile.WriteLine("</td>");
+                    }
+
+
+                    // Album
+                    if (chkAlbum.Checked)
+                    {
+                        outFile.WriteLine("<td>");
+                        outFile.WriteLine(iTunes.CurrentTrack.Album);
+                        outFile.WriteLine("</td>");
+                    }
+
+                    // Genre
+                    if (chkGenre.Checked)
+                    {
+                        outFile.WriteLine("<td>");
+                        outFile.WriteLine(iTunes.CurrentTrack.Genre);
+                        outFile.WriteLine("</td>");
+                    }
+
+                    // Song lookup
+                    if (chkLookup.Checked)
+                    {
+                        outFile.WriteLine("<td>");
+                        outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" +
+                            iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " +
+                            iTunes.CurrentTrack.Album + "\">Lookup</a>");
+                        outFile.WriteLine("</td>");
+                    }
+
                     outFile.WriteLine("</tr>");
 
                     // Update last logged at label
@@ -141,30 +176,67 @@ namespace SongHistory
 
                     if (!tmrUpdateFile.Enabled)
                     {
+                        outFile.WriteLine("Playlist: " + iTunes.CurrentPlaylist.Name);
                         // Create table header
                         outFile.WriteLine("<table border=\"1\" width=\"100%\">");
                         outFile.WriteLine("<tr>");
+
+                        // Log time
                         outFile.WriteLine("<th width=\"12%\">");
                         outFile.WriteLine("Time");
                         outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"20%\">");
-                        outFile.WriteLine("Song");
-                        outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"8%\">");
-                        outFile.WriteLine("Duration");
-                        outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"20%\">");
-                        outFile.WriteLine("Artist");
-                        outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"20%\">");
-                        outFile.WriteLine("Album");
-                        outFile.WriteLine("</th>");
-                        outFile.WriteLine("<th width=\"20%\">");
-                        outFile.WriteLine("YouTube Search");
-                        outFile.WriteLine("</th>");
-                        outFile.WriteLine("</tr>");
+
+                        // Song name
+                        if (chkName.Checked)
+                        {
+                            outFile.WriteLine("<th width=\"20%\">");
+                            outFile.WriteLine("Song");
+                            outFile.WriteLine("</th>");
+                        }
+
+                        // Song duration
+                        if (chkDuration.Checked)
+                        {
+                            outFile.WriteLine("<th width=\"8%\">");
+                            outFile.WriteLine("Duration");
+                            outFile.WriteLine("</th>");
+                        }
+
+                        // Song artist
+                        if (chkArtist.Checked)
+                        {
+                            outFile.WriteLine("<th width=\"15%\">");
+                            outFile.WriteLine("Artist");
+                            outFile.WriteLine("</th>");
+                        }
+
+                        // Song album
+                        if (chkAlbum.Checked)
+                        {
+                            outFile.WriteLine("<th width=\"15%\">");
+                            outFile.WriteLine("Album");
+                            outFile.WriteLine("</th>");
+                        }
+
+                        // Genre
+                        if (chkGenre.Checked)
+                        {
+                            outFile.WriteLine("<th width=\"10%\">");
+                            outFile.WriteLine("Genre");
+                            outFile.WriteLine("</th>");
+                        }
+
+                        // Song lookup
+                        if (chkLookup.Checked)
+                        {
+                            outFile.WriteLine("<th width=\"20%\">");
+                            outFile.WriteLine("YouTube Search");
+                            outFile.WriteLine("</th>");
+                            outFile.WriteLine("</tr>");
+                        }
 
                         tmrUpdateFile.Enabled = true;
+                        grpOptions.Enabled = false; // disable options since changing them will make the table weird
                     }
                     else
                     {
@@ -172,6 +244,7 @@ namespace SongHistory
                         outFile.WriteLine("<table>");
 
                         tmrUpdateFile.Enabled = false;
+                        grpOptions.Enabled = true;
                     }
                 }
             }
