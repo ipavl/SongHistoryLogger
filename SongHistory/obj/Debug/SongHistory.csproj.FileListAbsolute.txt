@@ -1,4 +1,3 @@
-C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\SongHistory.exe.config
 C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\SongHistory.exe
 C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\SongHistory.pdb
 C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.csprojResolveAssemblyReference.cache

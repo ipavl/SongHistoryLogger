@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,12 @@ namespace SongHistory
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SongHistory());
+
+            if(File.Exists("Interop.iTunesLib.dll"))
+                Application.Run(new SongHistory());
+            else
+                MessageBox.Show("Interop.iTunes.dll could not be found. Please place it in the same folder as " +
+                    "SongHistory.exe and restart the application.", "Error");
         }
     }
 }

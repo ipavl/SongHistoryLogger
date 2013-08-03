@@ -34,6 +34,9 @@
   <PropertyGroup>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SongHistory.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -78,9 +81,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="iTunesLib">
       <Guid>{9E93C96F-CF0D-43F6-8BA8-B807A3370712}</Guid>
       <VersionMajor>1</VersionMajor>
@@ -92,9 +92,9 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppIcon.ico">
+    <None Include="AppIcon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

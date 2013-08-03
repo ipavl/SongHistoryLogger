@@ -52,16 +52,16 @@
             this.chkDuration = new System.Windows.Forms.CheckBox();
             this.chkName = new System.Windows.Forms.CheckBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkMinimize = new System.Windows.Forms.CheckBox();
             this.notifyIconMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkMinimize = new System.Windows.Forms.CheckBox();
             this.grpTrackInfo.SuspendLayout();
             this.grpOptions.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.notifyIconMenu.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblOutput
@@ -284,29 +284,6 @@
             this.notifyIcon.Visible = true;
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chkMinimize);
-            this.groupBox1.Controls.Add(this.chkLog);
-            this.groupBox1.Location = new System.Drawing.Point(278, 135);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(124, 70);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Program Options";
-            // 
-            // chkMinimize
-            // 
-            this.chkMinimize.AutoSize = true;
-            this.chkMinimize.Checked = true;
-            this.chkMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMinimize.Location = new System.Drawing.Point(11, 19);
-            this.chkMinimize.Name = "chkMinimize";
-            this.chkMinimize.Size = new System.Drawing.Size(102, 17);
-            this.chkMinimize.TabIndex = 0;
-            this.chkMinimize.Text = "Minimize to Tray";
-            this.chkMinimize.UseVisualStyleBackColor = true;
-            // 
             // notifyIconMenu
             // 
             this.notifyIconMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -335,6 +312,29 @@
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chkMinimize);
+            this.groupBox1.Controls.Add(this.chkLog);
+            this.groupBox1.Location = new System.Drawing.Point(278, 135);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(124, 70);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Program Options";
+            // 
+            // chkMinimize
+            // 
+            this.chkMinimize.AutoSize = true;
+            this.chkMinimize.Checked = true;
+            this.chkMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMinimize.Location = new System.Drawing.Point(11, 19);
+            this.chkMinimize.Name = "chkMinimize";
+            this.chkMinimize.Size = new System.Drawing.Size(102, 17);
+            this.chkMinimize.TabIndex = 0;
+            this.chkMinimize.Text = "Minimize to Tray";
+            this.chkMinimize.UseVisualStyleBackColor = true;
+            // 
             // SongHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,9 +358,9 @@
             this.grpTrackInfo.PerformLayout();
             this.grpOptions.ResumeLayout(false);
             this.grpOptions.PerformLayout();
+            this.notifyIconMenu.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.notifyIconMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
