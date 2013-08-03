@@ -1,8 +1,22 @@
-﻿/* 
- * SongHistory.cs
- * Date: July 7th, 2013
+﻿/*
+ *  Song History Logger
  * 
- * Copyright (c)2013 ipavl. All rights reserved.
+ *  This program will allow a user to save their iTunes playlist history to file.
+ *  Copyright (C) 2013  ipavl <https://www.github.com/ipavl/SongHistoryLogger>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *  
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  
  */
 
 using System;
@@ -47,6 +61,16 @@ namespace SongHistory
 
         private void tmrUpdate_Tick(object sender, EventArgs e)
         {
+            // Don't enable the logging checkbox if we don't have a output folder speciied.
+            if (txtOutputFile.Text.Trim() == "")
+            {
+                chkLog.Enabled = false;
+            }
+            else
+            {
+                chkLog.Enabled = true;
+            }
+
             try
             {
                 grpTrackInfo.ForeColor = Color.Blue;
@@ -168,6 +192,7 @@ namespace SongHistory
          */
         private void chkLog_CheckedChanged(object sender, EventArgs e)
         {
+            Directory.CreateDirectory(txtOutputFile.Text);  // make sure the output folder exists
             StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
 
             try
@@ -290,6 +315,44 @@ namespace SongHistory
                 // The song is the same
                 return false;
             }
+        }
+
+        /*
+         * Minimize/restore to/from the system tray if enabled.
+         */
+        private void SongHistory_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                if (chkMinimize.Checked)
+                {
+                    notifyIcon.Visible = true;
+                    notifyIcon.ShowBalloonTip(3000);
+                    this.ShowInTaskbar = false;
+                }
+            }
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            notifyIcon.Visible = false;
+        }
+
+        /*
+         * Notify icon right click options 
+         */
+        private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+            notifyIcon.Visible = false;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

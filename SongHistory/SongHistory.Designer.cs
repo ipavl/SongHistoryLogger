@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SongHistory));
             this.lblOutput = new System.Windows.Forms.Label();
             this.fbdFolderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.txtOutputFile = new System.Windows.Forms.TextBox();
@@ -50,8 +51,17 @@
             this.chkArtist = new System.Windows.Forms.CheckBox();
             this.chkDuration = new System.Windows.Forms.CheckBox();
             this.chkName = new System.Windows.Forms.CheckBox();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkMinimize = new System.Windows.Forms.CheckBox();
+            this.notifyIconMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpTrackInfo.SuspendLayout();
             this.grpOptions.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.notifyIconMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblOutput
@@ -68,14 +78,14 @@
             this.txtOutputFile.Location = new System.Drawing.Point(89, 6);
             this.txtOutputFile.Name = "txtOutputFile";
             this.txtOutputFile.Size = new System.Drawing.Size(158, 20);
-            this.txtOutputFile.TabIndex = 1;
+            this.txtOutputFile.TabIndex = 0;
             // 
             // cmdBrowse
             // 
             this.cmdBrowse.Location = new System.Drawing.Point(339, 3);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(63, 24);
-            this.cmdBrowse.TabIndex = 2;
+            this.cmdBrowse.TabIndex = 1;
             this.cmdBrowse.Text = "Browse...";
             this.cmdBrowse.UseVisualStyleBackColor = true;
             this.cmdBrowse.Click += new System.EventHandler(this.cmdBrowse_Click);
@@ -100,9 +110,9 @@
             this.lblDuration.ForeColor = System.Drawing.Color.Black;
             this.lblDuration.Location = new System.Drawing.Point(6, 68);
             this.lblDuration.Name = "lblDuration";
-            this.lblDuration.Size = new System.Drawing.Size(50, 13);
+            this.lblDuration.Size = new System.Drawing.Size(203, 13);
             this.lblDuration.TabIndex = 3;
-            this.lblDuration.Text = "Duration:";
+            this.lblDuration.Text = "Duration: Gathering duration information...";
             // 
             // lblAlbum
             // 
@@ -110,9 +120,9 @@
             this.lblAlbum.ForeColor = System.Drawing.Color.Black;
             this.lblAlbum.Location = new System.Drawing.Point(6, 51);
             this.lblAlbum.Name = "lblAlbum";
-            this.lblAlbum.Size = new System.Drawing.Size(39, 13);
+            this.lblAlbum.Size = new System.Drawing.Size(182, 13);
             this.lblAlbum.TabIndex = 2;
-            this.lblAlbum.Text = "Album:";
+            this.lblAlbum.Text = "Album: Gathering album information...";
             // 
             // lblArtist
             // 
@@ -120,9 +130,9 @@
             this.lblArtist.ForeColor = System.Drawing.Color.Black;
             this.lblArtist.Location = new System.Drawing.Point(6, 34);
             this.lblArtist.Name = "lblArtist";
-            this.lblArtist.Size = new System.Drawing.Size(33, 13);
+            this.lblArtist.Size = new System.Drawing.Size(170, 13);
             this.lblArtist.TabIndex = 1;
-            this.lblArtist.Text = "Artist:";
+            this.lblArtist.Text = "Artist: Gathering artist information...";
             // 
             // lblTrack
             // 
@@ -130,9 +140,9 @@
             this.lblTrack.ForeColor = System.Drawing.Color.Black;
             this.lblTrack.Location = new System.Drawing.Point(6, 17);
             this.lblTrack.Name = "lblTrack";
-            this.lblTrack.Size = new System.Drawing.Size(38, 13);
+            this.lblTrack.Size = new System.Drawing.Size(177, 13);
             this.lblTrack.TabIndex = 0;
-            this.lblTrack.Text = "Track:";
+            this.lblTrack.Text = "Track: Gathering track information...";
             // 
             // tmrUpdateInfo
             // 
@@ -148,22 +158,23 @@
             // chkLog
             // 
             this.chkLog.AutoSize = true;
-            this.chkLog.Location = new System.Drawing.Point(12, 135);
+            this.chkLog.Enabled = false;
+            this.chkLog.Location = new System.Drawing.Point(11, 42);
             this.chkLog.Name = "chkLog";
-            this.chkLog.Size = new System.Drawing.Size(177, 17);
-            this.chkLog.TabIndex = 4;
-            this.chkLog.Text = "Log Songs to File (every minute)";
+            this.chkLog.Size = new System.Drawing.Size(108, 17);
+            this.chkLog.TabIndex = 1;
+            this.chkLog.Text = "Log Songs to File";
             this.chkLog.UseVisualStyleBackColor = true;
             this.chkLog.CheckedChanged += new System.EventHandler(this.chkLog_CheckedChanged);
             // 
             // lblLastLogged
             // 
             this.lblLastLogged.AutoSize = true;
-            this.lblLastLogged.Location = new System.Drawing.Point(212, 136);
+            this.lblLastLogged.Location = new System.Drawing.Point(12, 211);
             this.lblLastLogged.Name = "lblLastLogged";
-            this.lblLastLogged.Size = new System.Drawing.Size(149, 13);
+            this.lblLastLogged.Size = new System.Drawing.Size(282, 13);
             this.lblLastLogged.TabIndex = 5;
-            this.lblLastLogged.Text = "Last logged at: Not logged yet";
+            this.lblLastLogged.Text = "Last logged at: Not logged yet (enable in Program Options)";
             // 
             // label1
             // 
@@ -182,9 +193,9 @@
             this.grpOptions.Controls.Add(this.chkArtist);
             this.grpOptions.Controls.Add(this.chkDuration);
             this.grpOptions.Controls.Add(this.chkName);
-            this.grpOptions.Location = new System.Drawing.Point(12, 159);
+            this.grpOptions.Location = new System.Drawing.Point(12, 135);
             this.grpOptions.Name = "grpOptions";
-            this.grpOptions.Size = new System.Drawing.Size(287, 70);
+            this.grpOptions.Size = new System.Drawing.Size(260, 70);
             this.grpOptions.TabIndex = 7;
             this.grpOptions.TabStop = false;
             this.grpOptions.Text = "Include the following:";
@@ -194,10 +205,10 @@
             this.chkLookup.AutoSize = true;
             this.chkLookup.Checked = true;
             this.chkLookup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkLookup.Location = new System.Drawing.Point(193, 42);
+            this.chkLookup.Location = new System.Drawing.Point(171, 42);
             this.chkLookup.Name = "chkLookup";
             this.chkLookup.Size = new System.Drawing.Size(86, 17);
-            this.chkLookup.TabIndex = 7;
+            this.chkLookup.TabIndex = 5;
             this.chkLookup.Text = "Song lookup";
             this.chkLookup.UseVisualStyleBackColor = true;
             // 
@@ -206,10 +217,10 @@
             this.chkGenre.AutoSize = true;
             this.chkGenre.Checked = true;
             this.chkGenre.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkGenre.Location = new System.Drawing.Point(193, 19);
+            this.chkGenre.Location = new System.Drawing.Point(171, 19);
             this.chkGenre.Name = "chkGenre";
             this.chkGenre.Size = new System.Drawing.Size(55, 17);
-            this.chkGenre.TabIndex = 5;
+            this.chkGenre.TabIndex = 4;
             this.chkGenre.Text = "Genre";
             this.chkGenre.UseVisualStyleBackColor = true;
             // 
@@ -261,27 +272,95 @@
             this.chkName.Text = "Song Name";
             this.chkName.UseVisualStyleBackColor = true;
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.BalloonTipText = "Song History Logger is now running the background. Double click its icon in the s" +
+    "ystem try to restore it.";
+            this.notifyIcon.BalloonTipTitle = "Song History Logger";
+            this.notifyIcon.ContextMenuStrip = this.notifyIconMenu;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Song History Logger";
+            this.notifyIcon.Visible = true;
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.chkMinimize);
+            this.groupBox1.Controls.Add(this.chkLog);
+            this.groupBox1.Location = new System.Drawing.Point(278, 135);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(124, 70);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Program Options";
+            // 
+            // chkMinimize
+            // 
+            this.chkMinimize.AutoSize = true;
+            this.chkMinimize.Checked = true;
+            this.chkMinimize.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkMinimize.Location = new System.Drawing.Point(11, 19);
+            this.chkMinimize.Name = "chkMinimize";
+            this.chkMinimize.Size = new System.Drawing.Size(102, 17);
+            this.chkMinimize.TabIndex = 0;
+            this.chkMinimize.Text = "Minimize to Tray";
+            this.chkMinimize.UseVisualStyleBackColor = true;
+            // 
+            // notifyIconMenu
+            // 
+            this.notifyIconMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem});
+            this.notifyIconMenu.Name = "notifyIconMenu";
+            this.notifyIconMenu.Size = new System.Drawing.Size(114, 54);
+            // 
+            // restoreToolStripMenuItem
+            // 
+            this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.restoreToolStripMenuItem.Text = "Restore";
+            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoreToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(110, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
             // SongHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 241);
+            this.ClientSize = new System.Drawing.Size(414, 233);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpOptions);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblLastLogged);
-            this.Controls.Add(this.chkLog);
             this.Controls.Add(this.grpTrackInfo);
             this.Controls.Add(this.cmdBrowse);
             this.Controls.Add(this.txtOutputFile);
             this.Controls.Add(this.lblOutput);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "SongHistory";
-            this.Text = "Song History Logger (www.github.com/ipavl) - v1.3";
+            this.Text = "Song History Logger (www.github.com/ipavl) - v1.4";
+            this.Resize += new System.EventHandler(this.SongHistory_Resize);
             this.grpTrackInfo.ResumeLayout(false);
             this.grpTrackInfo.PerformLayout();
             this.grpOptions.ResumeLayout(false);
             this.grpOptions.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.notifyIconMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -310,6 +389,13 @@
         private System.Windows.Forms.CheckBox chkArtist;
         private System.Windows.Forms.CheckBox chkDuration;
         private System.Windows.Forms.CheckBox chkName;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkMinimize;
+        private System.Windows.Forms.ContextMenuStrip notifyIconMenu;
+        private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
 }
 

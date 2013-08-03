@@ -10,3 +10,4 @@ C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.pdb
 C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\Interop.iTunesLib.dll
 C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\Interop.iTunesLib.dll
 C:\Users\Ian\workspace\SongHistory\SongHistory\obj\Debug\SongHistory.csproj.ResolveComReference.cache
+C:\Users\Ian\workspace\SongHistory\SongHistory\bin\Debug\AppIcon.ico
