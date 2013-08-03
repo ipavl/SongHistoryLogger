@@ -25,6 +25,12 @@ namespace SongHistory
         // The iTunes interface
         IiTunes iTunes = new iTunesAppClass();
 
+        // These will be used for checking to see if we need to update the file.
+        private String lastSong;
+        private String lastArtist;
+        private String lastAlbum;
+        private String lastDuration;
+
         public SongHistory()
         {
             InitializeComponent();
@@ -64,6 +70,7 @@ namespace SongHistory
         private void tmrUpdateFile_Tick(object sender, EventArgs e)
         {
             StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
+
             try
             {
                 if (txtOutputFile.Text.Trim() == "")
@@ -78,67 +85,70 @@ namespace SongHistory
                     grpTrackInfo.ForeColor = Color.Blue;
                     grpTrackInfo.Text = "Current Track Information";
 
-                    // Output song information as HTML table row
-                    outFile.WriteLine("<tr>");
-                    outFile.WriteLine("<td>");
-                    outFile.WriteLine(DateTime.Now);
-                    outFile.WriteLine("</td>");
-
-                    // Song name
-                    if (chkName.Checked)
+                    if (isSongChanged())    // only update if the song is not the same as the last one we logged
                     {
+                        // Output song information as HTML table row
+                        outFile.WriteLine("<tr>");
                         outFile.WriteLine("<td>");
-                        outFile.WriteLine(iTunes.CurrentTrack.Name);
+                        outFile.WriteLine(DateTime.Now);
                         outFile.WriteLine("</td>");
+
+                        // Song name
+                        if (chkName.Checked)
+                        {
+                            outFile.WriteLine("<td>");
+                            outFile.WriteLine(iTunes.CurrentTrack.Name);
+                            outFile.WriteLine("</td>");
+                        }
+
+                        // Song duration
+                        if (chkDuration.Checked)
+                        {
+                            outFile.WriteLine("<td>");
+                            outFile.WriteLine(iTunes.CurrentTrack.Time);
+                            outFile.WriteLine("</td>");
+                        }
+
+                        // Song artist
+                        if (chkArtist.Checked)
+                        {
+                            outFile.WriteLine("<td>");
+                            outFile.WriteLine(iTunes.CurrentTrack.Artist);
+                            outFile.WriteLine("</td>");
+                        }
+
+
+                        // Album
+                        if (chkAlbum.Checked)
+                        {
+                            outFile.WriteLine("<td>");
+                            outFile.WriteLine(iTunes.CurrentTrack.Album);
+                            outFile.WriteLine("</td>");
+                        }
+
+                        // Genre
+                        if (chkGenre.Checked)
+                        {
+                            outFile.WriteLine("<td>");
+                            outFile.WriteLine(iTunes.CurrentTrack.Genre);
+                            outFile.WriteLine("</td>");
+                        }
+
+                        // Song lookup
+                        if (chkLookup.Checked)
+                        {
+                            outFile.WriteLine("<td>");
+                            outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" +
+                                iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " +
+                                iTunes.CurrentTrack.Album + "\">Lookup</a>");
+                            outFile.WriteLine("</td>");
+                        }
+
+                        outFile.WriteLine("</tr>");
+
+                        // Update last logged at label
+                        lblLastLogged.Text = "Last logged at: " + String.Format("{0:MM/dd/yy hh:mm:ss tt}", DateTime.Now);
                     }
-
-                    // Song duration
-                    if (chkDuration.Checked)
-                    {
-                        outFile.WriteLine("<td>");
-                        outFile.WriteLine(iTunes.CurrentTrack.Time);
-                        outFile.WriteLine("</td>");
-                    }
-                    
-                    // Song artist
-                    if (chkArtist.Checked)
-                    {
-                        outFile.WriteLine("<td>");
-                        outFile.WriteLine(iTunes.CurrentTrack.Artist);
-                        outFile.WriteLine("</td>");
-                    }
-
-
-                    // Album
-                    if (chkAlbum.Checked)
-                    {
-                        outFile.WriteLine("<td>");
-                        outFile.WriteLine(iTunes.CurrentTrack.Album);
-                        outFile.WriteLine("</td>");
-                    }
-
-                    // Genre
-                    if (chkGenre.Checked)
-                    {
-                        outFile.WriteLine("<td>");
-                        outFile.WriteLine(iTunes.CurrentTrack.Genre);
-                        outFile.WriteLine("</td>");
-                    }
-
-                    // Song lookup
-                    if (chkLookup.Checked)
-                    {
-                        outFile.WriteLine("<td>");
-                        outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" +
-                            iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " +
-                            iTunes.CurrentTrack.Album + "\">Lookup</a>");
-                        outFile.WriteLine("</td>");
-                    }
-
-                    outFile.WriteLine("</tr>");
-
-                    // Update last logged at label
-                    lblLastLogged.Text = "Last logged at: " + String.Format("{0:MM/dd/yy hh:mm:ss tt}", DateTime.Now);
                 }
             }
             catch (Exception ex)
@@ -257,6 +267,28 @@ namespace SongHistory
             finally
             {
                 outFile.Close();
+            }
+        }
+
+        /*
+         * This function will compare the current song to the last one and return whether or not it is different.
+         */
+        private Boolean isSongChanged()
+        {
+            if (iTunes.CurrentTrack.Name != lastSong || iTunes.CurrentTrack.Artist != lastArtist ||
+                iTunes.CurrentTrack.Album != lastAlbum || iTunes.CurrentTrack.Time != lastDuration)
+            {
+                // Save the new song data for later comparison
+                lastSong = iTunes.CurrentTrack.Name;
+                lastArtist = iTunes.CurrentTrack.Artist;
+                lastAlbum = iTunes.CurrentTrack.Album;
+                lastDuration = iTunes.CurrentTrack.Time;
+                return true;
+            }
+            else
+            {
+                // The song is the same
+                return false;
             }
         }
     }

@@ -142,7 +142,7 @@
             // 
             // tmrUpdateFile
             // 
-            this.tmrUpdateFile.Interval = 60000;
+            this.tmrUpdateFile.Interval = 1000;
             this.tmrUpdateFile.Tick += new System.EventHandler(this.tmrUpdateFile_Tick);
             // 
             // chkLog
@@ -277,7 +277,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "SongHistory";
-            this.Text = "Song History Logger (www.github.com/ipavl) - v1.2";
+            this.Text = "Song History Logger (www.github.com/ipavl) - v1.3";
             this.grpTrackInfo.ResumeLayout(false);
             this.grpTrackInfo.PerformLayout();
             this.grpOptions.ResumeLayout(false);
