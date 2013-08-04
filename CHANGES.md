@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+* v1.4.5 - August 4th, 2013
+
+	- fixed bug where the option to disable logging wasn't working
+
 * v1.4.4 - August 4th, 2013
 
 	- if the user changes playlist while the program is logging, it will now make note of this

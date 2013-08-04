@@ -150,6 +150,10 @@ namespace SongHistory
                     {
                         WriteTableHeader();
                     }
+                    else
+                    {
+                        WriteTableFooter();
+                    }
                 }
             }
             catch (Exception ex)
@@ -344,7 +348,7 @@ namespace SongHistory
                     outFile.WriteLine("<td>");
                     outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" +
                         iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " +
-                        iTunes.CurrentTrack.Album + "\">Lookup</a>");
+                        iTunes.CurrentTrack.Album + "\" target=\"_blank\"\">Lookup</a>");
                     outFile.WriteLine("</td>");
                 }
 
