@@ -54,27 +54,34 @@ namespace SongHistory
 
         private void cmdBrowse_Click(object sender, EventArgs e)
         {
-            DialogResult result = fbdFolderBrowser.ShowDialog();
-            if (result == DialogResult.OK)
+            try
             {
-                txtOutputFile.Text = fbdFolderBrowser.SelectedPath;
+                DialogResult result = fbdFolderBrowser.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    txtOutputFile.Text = fbdFolderBrowser.SelectedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
             }
         }
 
         private void tmrUpdate_Tick(object sender, EventArgs e)
         {
-            // Don't enable the logging checkbox if we don't have a output folder speciied.
-            if (txtOutputFile.Text.Trim() == "")
-            {
-                chkLog.Enabled = false;
-            }
-            else
-            {
-                chkLog.Enabled = true;
-            }
-
             try
             {
+                // Don't enable the logging checkbox if we don't have a output folder speciied.
+                if (txtOutputFile.Text.Trim() == "")
+                {
+                    chkLog.Enabled = false;
+                }
+                else
+                {
+                    chkLog.Enabled = true;
+                }
+
                 grpTrackInfo.ForeColor = Color.Blue;
                 grpTrackInfo.Text = "Current Track Information";
                 lblTrack.Text = "Track: " + iTunes.CurrentTrack.Name;
@@ -95,8 +102,6 @@ namespace SongHistory
          */
         private void tmrUpdateFile_Tick(object sender, EventArgs e)
         {
-            StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
-
             try
             {
                 if (txtOutputFile.Text.Trim() == "")
@@ -113,67 +118,7 @@ namespace SongHistory
 
                     if (isSongChanged())    // only update if the song is not the same as the last one we logged
                     {
-                        // Output song information as HTML table row
-                        outFile.WriteLine("<tr>");
-                        outFile.WriteLine("<td>");
-                        outFile.WriteLine(DateTime.Now);
-                        outFile.WriteLine("</td>");
-
-                        // Song name
-                        if (chkName.Checked)
-                        {
-                            outFile.WriteLine("<td>");
-                            outFile.WriteLine(iTunes.CurrentTrack.Name);
-                            outFile.WriteLine("</td>");
-                        }
-
-                        // Song duration
-                        if (chkDuration.Checked)
-                        {
-                            outFile.WriteLine("<td>");
-                            outFile.WriteLine(iTunes.CurrentTrack.Time);
-                            outFile.WriteLine("</td>");
-                        }
-
-                        // Song artist
-                        if (chkArtist.Checked)
-                        {
-                            outFile.WriteLine("<td>");
-                            outFile.WriteLine(iTunes.CurrentTrack.Artist);
-                            outFile.WriteLine("</td>");
-                        }
-
-
-                        // Album
-                        if (chkAlbum.Checked)
-                        {
-                            outFile.WriteLine("<td>");
-                            outFile.WriteLine(iTunes.CurrentTrack.Album);
-                            outFile.WriteLine("</td>");
-                        }
-
-                        // Genre
-                        if (chkGenre.Checked)
-                        {
-                            outFile.WriteLine("<td>");
-                            outFile.WriteLine(iTunes.CurrentTrack.Genre);
-                            outFile.WriteLine("</td>");
-                        }
-
-                        // Song lookup
-                        if (chkLookup.Checked)
-                        {
-                            outFile.WriteLine("<td>");
-                            outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" +
-                                iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " +
-                                iTunes.CurrentTrack.Album + "\">Lookup</a>");
-                            outFile.WriteLine("</td>");
-                        }
-
-                        outFile.WriteLine("</tr>");
-
-                        // Update last logged at label
-                        lblLastLogged.Text = "Last logged at: " + String.Format("{0:MM/dd/yy hh:mm:ss tt}", DateTime.Now);
+                        WriteSongDetails();
                     }
                 }
             }
@@ -183,10 +128,6 @@ namespace SongHistory
                 tmrUpdateFile.Enabled = false;
                 chkLog.Checked = false;
             }
-            finally
-            {
-                outFile.Close();
-            }
         }
 
         /*
@@ -194,9 +135,6 @@ namespace SongHistory
          */
         private void chkLog_CheckedChanged(object sender, EventArgs e)
         {
-            Directory.CreateDirectory(txtOutputFile.Text);  // make sure the output folder exists
-            StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
-
             try
             {
                 if (txtOutputFile.Text.Trim() == "")
@@ -208,90 +146,9 @@ namespace SongHistory
                 }
                 else
                 {
-                    grpTrackInfo.ForeColor = Color.Blue;
-                    grpTrackInfo.Text = "Current Track Information";
-
-                    if (!tmrUpdateFile.Enabled)
+                    if (chkLog.Checked)
                     {
-                        // Disable the folder selection controls
-                        txtOutputFile.ReadOnly = true;
-                        cmdBrowse.Enabled = false;
-
-                        // Get playlist information (TODO: Make this update on playlist change)
-                        lastPlaylist = iTunes.CurrentPlaylist.Name;
-                        outFile.WriteLine("Playlist: " + lastPlaylist + " (" + 
-                            iTunes.CurrentPlaylist.Time + " hours long)");
-
-                        // Create table header
-                        outFile.WriteLine("<table border=\"1\" width=\"100%\">");
-                        outFile.WriteLine("<tr>");
-
-                        // Log time
-                        outFile.WriteLine("<th width=\"15%\">");
-                        outFile.WriteLine("Time");
-                        outFile.WriteLine("</th>");
-
-                        // Song name
-                        if (chkName.Checked)
-                        {
-                            outFile.WriteLine("<th width=\"20%\">");
-                            outFile.WriteLine("Song");
-                            outFile.WriteLine("</th>");
-                        }
-
-                        // Song duration
-                        if (chkDuration.Checked)
-                        {
-                            outFile.WriteLine("<th width=\"5%\">");
-                            outFile.WriteLine("Duration");
-                            outFile.WriteLine("</th>");
-                        }
-
-                        // Song artist
-                        if (chkArtist.Checked)
-                        {
-                            outFile.WriteLine("<th width=\"15%\">");
-                            outFile.WriteLine("Artist");
-                            outFile.WriteLine("</th>");
-                        }
-
-                        // Song album
-                        if (chkAlbum.Checked)
-                        {
-                            outFile.WriteLine("<th width=\"15%\">");
-                            outFile.WriteLine("Album");
-                            outFile.WriteLine("</th>");
-                        }
-
-                        // Genre
-                        if (chkGenre.Checked)
-                        {
-                            outFile.WriteLine("<th width=\"15%\">");
-                            outFile.WriteLine("Genre");
-                            outFile.WriteLine("</th>");
-                        }
-
-                        // Song lookup
-                        if (chkLookup.Checked)
-                        {
-                            outFile.WriteLine("<th width=\"10%\">");
-                            outFile.WriteLine("YouTube Search");
-                            outFile.WriteLine("</th>");
-                            outFile.WriteLine("</tr>");
-                        }
-
-                        tmrUpdateFile.Enabled = true;
-                        grpOptions.Enabled = false; // disable options since changing them will make the table weird
-                    }
-                    else
-                    {
-                        // End table
-                        outFile.WriteLine("</table>");
-
-                        tmrUpdateFile.Enabled = false;
-                        txtOutputFile.ReadOnly = false;
-                        grpOptions.Enabled = true;
-                        cmdBrowse.Enabled = true;
+                        WriteTableHeader();
                     }
                 }
             }
@@ -301,9 +158,205 @@ namespace SongHistory
                 tmrUpdateFile.Enabled = false;
                 chkLog.Checked = false;
             }
-            finally
+        }
+
+        /*
+         * This function will write the table's header (or end the table if the timer is disabled)
+         */
+        private void WriteTableHeader()
+        {
+            try
             {
+                grpTrackInfo.ForeColor = Color.Blue;
+                grpTrackInfo.Text = "Current Track Information";
+
+                Directory.CreateDirectory(txtOutputFile.Text);  // make sure the output folder exists
+                StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
+
+                // Disable the folder selection controls and options
+                txtOutputFile.ReadOnly = true;
+                cmdBrowse.Enabled = false;
+                grpOptions.Enabled = false;
+
+                // Enable timer
+                tmrUpdateFile.Enabled = true;
+
+                // Get playlist information
+                lastPlaylist = iTunes.CurrentPlaylist.Name;
+                outFile.WriteLine("Playlist: " + lastPlaylist + " (" +
+                    iTunes.CurrentPlaylist.Time + " hours long)");
+
+                // Create table header
+                outFile.WriteLine("<table border=\"1\" width=\"100%\">");
+                outFile.WriteLine("<tr>");
+
+                // Log time
+                outFile.WriteLine("<th width=\"15%\">");
+                outFile.WriteLine("Time");
+                outFile.WriteLine("</th>");
+
+                // Song name
+                if (chkName.Checked)
+                {
+                    outFile.WriteLine("<th width=\"20%\">");
+                    outFile.WriteLine("Song");
+                    outFile.WriteLine("</th>");
+                }
+
+                // Song duration
+                if (chkDuration.Checked)
+                {
+                    outFile.WriteLine("<th width=\"5%\">");
+                    outFile.WriteLine("Duration");
+                    outFile.WriteLine("</th>");
+                }
+
+                // Song artist
+                if (chkArtist.Checked)
+                {
+                    outFile.WriteLine("<th width=\"15%\">");
+                    outFile.WriteLine("Artist");
+                    outFile.WriteLine("</th>");
+                }
+
+                // Song album
+                if (chkAlbum.Checked)
+                {
+                    outFile.WriteLine("<th width=\"15%\">");
+                    outFile.WriteLine("Album");
+                    outFile.WriteLine("</th>");
+                }
+
+                // Genre
+                if (chkGenre.Checked)
+                {
+                    outFile.WriteLine("<th width=\"15%\">");
+                    outFile.WriteLine("Genre");
+                    outFile.WriteLine("</th>");
+                }
+
+                // Song lookup
+                if (chkLookup.Checked)
+                {
+                    outFile.WriteLine("<th width=\"10%\">");
+                    outFile.WriteLine("YouTube Search");
+                    outFile.WriteLine("</th>");
+                    outFile.WriteLine("</tr>");
+                }
+
+                // Close the file
                 outFile.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("WriteTableHeader(): " + ex.Message);
+            }
+        }
+
+        /*
+         * This function will end the current table
+         */
+        private void WriteTableFooter()
+        {
+            try
+            {
+                StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
+
+                tmrUpdateFile.Enabled = false;
+                txtOutputFile.ReadOnly = false;
+                grpOptions.Enabled = true;
+                cmdBrowse.Enabled = true;
+
+                outFile.WriteLine("</table><br>");
+                outFile.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("WriteTableFooter(): " + ex.Message);
+            }
+        }
+
+        /*
+         * This function will write the current song's details to its own row
+         */
+        private void WriteSongDetails()
+        {
+            try
+            {
+                // If the playlist has been changed, restart the table
+                if (lastPlaylist != iTunes.CurrentPlaylist.Name)
+                {
+                    WriteTableFooter();
+                    WriteTableHeader();
+                }
+
+                StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
+
+                // Output song information as HTML table row
+                outFile.WriteLine("<tr>");
+                outFile.WriteLine("<td>");
+                outFile.WriteLine(DateTime.Now);
+                outFile.WriteLine("</td>");
+
+                // Song name
+                if (chkName.Checked)
+                {
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine(iTunes.CurrentTrack.Name);
+                    outFile.WriteLine("</td>");
+                }
+
+                // Song duration
+                if (chkDuration.Checked)
+                {
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine(iTunes.CurrentTrack.Time);
+                    outFile.WriteLine("</td>");
+                }
+
+                // Song artist
+                if (chkArtist.Checked)
+                {
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine(iTunes.CurrentTrack.Artist);
+                    outFile.WriteLine("</td>");
+                }
+
+                // Album
+                if (chkAlbum.Checked)
+                {
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine(iTunes.CurrentTrack.Album);
+                    outFile.WriteLine("</td>");
+                }
+
+                // Genre
+                if (chkGenre.Checked)
+                {
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine(iTunes.CurrentTrack.Genre);
+                    outFile.WriteLine("</td>");
+                }
+
+                // Song lookup
+                if (chkLookup.Checked)
+                {
+                    outFile.WriteLine("<td>");
+                    outFile.WriteLine("<a href=\"https://www.youtube.com/results?search_query=" +
+                        iTunes.CurrentTrack.Artist + " " + iTunes.CurrentTrack.Name + " " +
+                        iTunes.CurrentTrack.Album + "\">Lookup</a>");
+                    outFile.WriteLine("</td>");
+                }
+
+                outFile.WriteLine("</tr>");
+                outFile.Close();
+
+                // Update last logged at label
+                lblLastLogged.Text = "Last logged at: " + String.Format("{0:MM/dd/yy hh:mm:ss tt}", DateTime.Now);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("WriteSongDetails(): " + ex.Message);
             }
         }
 
@@ -313,7 +366,8 @@ namespace SongHistory
         private Boolean isSongChanged()
         {
             if (iTunes.CurrentTrack.Name != lastSong || iTunes.CurrentTrack.Artist != lastArtist ||
-                iTunes.CurrentTrack.Album != lastAlbum || iTunes.CurrentTrack.Time != lastDuration)
+                iTunes.CurrentTrack.Album != lastAlbum || iTunes.CurrentTrack.Time != lastDuration ||
+                iTunes.CurrentPlaylist.Name != lastPlaylist)
             {
                 // Save the new song data for later comparison
                 lastSong = iTunes.CurrentTrack.Name;
@@ -334,22 +388,36 @@ namespace SongHistory
          */
         private void SongHistory_Resize(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Minimized)
+            try
             {
-                if (chkMinimize.Checked)
+                if (this.WindowState == FormWindowState.Minimized)
                 {
-                    notifyIcon.Visible = true;
-                    notifyIcon.ShowBalloonTip(3000);
-                    this.ShowInTaskbar = false;
+                    if (chkMinimize.Checked)
+                    {
+                        notifyIcon.Visible = true;
+                        notifyIcon.ShowBalloonTip(3000);
+                        this.ShowInTaskbar = false;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
             }
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
-            notifyIcon.Visible = false;
+            try
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.ShowInTaskbar = true;
+                notifyIcon.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
         }
 
         /*
@@ -357,14 +425,26 @@ namespace SongHistory
          */
         private void restoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Normal;
-            this.ShowInTaskbar = true;
-            notifyIcon.Visible = false;
+            try
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.ShowInTaskbar = true;
+                notifyIcon.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void SongHistory_Load(object sender, EventArgs e)
+        {
+            txtOutputFile.Text = Application.StartupPath;
         }
     }
 }

@@ -353,6 +353,7 @@
             this.MaximizeBox = false;
             this.Name = "SongHistory";
             this.Text = "Song History Logger (www.github.com/ipavl) - v1.4";
+            this.Load += new System.EventHandler(this.SongHistory_Load);
             this.Resize += new System.EventHandler(this.SongHistory_Resize);
             this.grpTrackInfo.ResumeLayout(false);
             this.grpTrackInfo.PerformLayout();

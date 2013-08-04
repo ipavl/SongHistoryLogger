@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+* v1.4.4 - August 4th, 2013
+
+	- if the user changes playlist while the program is logging, it will now make note of this
+	
+	- output folder is now listed as startup path on launch (it was before, it just did not say it)
+
 * v1.4.3 - August 3rd, 2013
 
 	- playlist length is now shown in log file
