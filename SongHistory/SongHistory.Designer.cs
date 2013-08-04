@@ -198,7 +198,7 @@
             this.grpOptions.Size = new System.Drawing.Size(260, 70);
             this.grpOptions.TabIndex = 7;
             this.grpOptions.TabStop = false;
-            this.grpOptions.Text = "Include the following:";
+            this.grpOptions.Text = "Log the following:";
             // 
             // chkLookup
             // 
