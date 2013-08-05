@@ -43,7 +43,6 @@
             this.tmrUpdateFile = new System.Windows.Forms.Timer(this.components);
             this.chkLog = new System.Windows.Forms.CheckBox();
             this.lblLastLogged = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.grpOptions = new System.Windows.Forms.GroupBox();
             this.chkLookup = new System.Windows.Forms.CheckBox();
             this.chkGenre = new System.Windows.Forms.CheckBox();
@@ -58,6 +57,8 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkMinimize = new System.Windows.Forms.CheckBox();
+            this.lblOutputFile = new System.Windows.Forms.LinkLabel();
+            this.lblReconnect = new System.Windows.Forms.Label();
             this.grpTrackInfo.SuspendLayout();
             this.grpOptions.SuspendLayout();
             this.notifyIconMenu.SuspendLayout();
@@ -75,14 +76,14 @@
             // 
             // txtOutputFile
             // 
-            this.txtOutputFile.Location = new System.Drawing.Point(89, 6);
+            this.txtOutputFile.Location = new System.Drawing.Point(87, 6);
             this.txtOutputFile.Name = "txtOutputFile";
             this.txtOutputFile.Size = new System.Drawing.Size(158, 20);
             this.txtOutputFile.TabIndex = 0;
             // 
             // cmdBrowse
             // 
-            this.cmdBrowse.Location = new System.Drawing.Point(339, 3);
+            this.cmdBrowse.Location = new System.Drawing.Point(338, 3);
             this.cmdBrowse.Name = "cmdBrowse";
             this.cmdBrowse.Size = new System.Drawing.Size(63, 24);
             this.cmdBrowse.TabIndex = 1;
@@ -92,12 +93,13 @@
             // 
             // grpTrackInfo
             // 
+            this.grpTrackInfo.Controls.Add(this.lblReconnect);
             this.grpTrackInfo.Controls.Add(this.lblDuration);
             this.grpTrackInfo.Controls.Add(this.lblAlbum);
             this.grpTrackInfo.Controls.Add(this.lblArtist);
             this.grpTrackInfo.Controls.Add(this.lblTrack);
             this.grpTrackInfo.ForeColor = System.Drawing.Color.Blue;
-            this.grpTrackInfo.Location = new System.Drawing.Point(12, 39);
+            this.grpTrackInfo.Location = new System.Drawing.Point(12, 33);
             this.grpTrackInfo.Name = "grpTrackInfo";
             this.grpTrackInfo.Size = new System.Drawing.Size(390, 90);
             this.grpTrackInfo.TabIndex = 3;
@@ -148,7 +150,7 @@
             // 
             this.tmrUpdateInfo.Enabled = true;
             this.tmrUpdateInfo.Interval = 1000;
-            this.tmrUpdateInfo.Tick += new System.EventHandler(this.tmrUpdate_Tick);
+            this.tmrUpdateInfo.Tick += new System.EventHandler(this.tmrUpdateInfo_Tick);
             // 
             // tmrUpdateFile
             // 
@@ -170,20 +172,11 @@
             // lblLastLogged
             // 
             this.lblLastLogged.AutoSize = true;
-            this.lblLastLogged.Location = new System.Drawing.Point(12, 211);
+            this.lblLastLogged.Location = new System.Drawing.Point(12, 202);
             this.lblLastLogged.Name = "lblLastLogged";
             this.lblLastLogged.Size = new System.Drawing.Size(282, 13);
             this.lblLastLogged.TabIndex = 5;
             this.lblLastLogged.Text = "Last logged at: Not logged yet (enable in Program Options)";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(248, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "\\songhistory.htm";
             // 
             // grpOptions
             // 
@@ -193,7 +186,7 @@
             this.grpOptions.Controls.Add(this.chkArtist);
             this.grpOptions.Controls.Add(this.chkDuration);
             this.grpOptions.Controls.Add(this.chkName);
-            this.grpOptions.Location = new System.Drawing.Point(12, 135);
+            this.grpOptions.Location = new System.Drawing.Point(12, 129);
             this.grpOptions.Name = "grpOptions";
             this.grpOptions.Size = new System.Drawing.Size(260, 70);
             this.grpOptions.TabIndex = 7;
@@ -316,7 +309,7 @@
             // 
             this.groupBox1.Controls.Add(this.chkMinimize);
             this.groupBox1.Controls.Add(this.chkLog);
-            this.groupBox1.Location = new System.Drawing.Point(278, 135);
+            this.groupBox1.Location = new System.Drawing.Point(278, 129);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(124, 70);
             this.groupBox1.TabIndex = 8;
@@ -335,14 +328,42 @@
             this.chkMinimize.Text = "Minimize to Tray";
             this.chkMinimize.UseVisualStyleBackColor = true;
             // 
+            // lblOutputFile
+            // 
+            this.lblOutputFile.AutoSize = true;
+            this.lblOutputFile.Location = new System.Drawing.Point(249, 9);
+            this.lblOutputFile.Name = "lblOutputFile";
+            this.lblOutputFile.Size = new System.Drawing.Size(85, 13);
+            this.lblOutputFile.TabIndex = 9;
+            this.lblOutputFile.TabStop = true;
+            this.lblOutputFile.Text = "\\songhistory.htm";
+            this.lblOutputFile.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblOutputFile_LinkClicked);
+            // 
+            // lblReconnect
+            // 
+            this.lblReconnect.AutoSize = true;
+            this.lblReconnect.BackColor = System.Drawing.Color.Black;
+            this.lblReconnect.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblReconnect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblReconnect.ForeColor = System.Drawing.Color.White;
+            this.lblReconnect.Location = new System.Drawing.Point(43, 36);
+            this.lblReconnect.Name = "lblReconnect";
+            this.lblReconnect.Size = new System.Drawing.Size(305, 28);
+            this.lblReconnect.TabIndex = 4;
+            this.lblReconnect.Text = "Connection to iTunes lost. Please make sure iTunes is running,\r\nselect a track, a" +
+    "nd then click here to reconnect.";
+            this.lblReconnect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblReconnect.Visible = false;
+            this.lblReconnect.Click += new System.EventHandler(this.lblReconnect_Click);
+            // 
             // SongHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(414, 233);
+            this.ClientSize = new System.Drawing.Size(414, 224);
+            this.Controls.Add(this.lblOutputFile);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.grpOptions);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblLastLogged);
             this.Controls.Add(this.grpTrackInfo);
             this.Controls.Add(this.cmdBrowse);
@@ -382,7 +403,6 @@
         private System.Windows.Forms.Timer tmrUpdateFile;
         private System.Windows.Forms.CheckBox chkLog;
         private System.Windows.Forms.Label lblLastLogged;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox grpOptions;
         private System.Windows.Forms.CheckBox chkLookup;
         private System.Windows.Forms.CheckBox chkGenre;
@@ -397,6 +417,8 @@
         private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel lblOutputFile;
+        private System.Windows.Forms.Label lblReconnect;
     }
 }
 

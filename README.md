@@ -1,7 +1,9 @@
 Song History Logger
 ===================
 
-Author: ipavl <https://www.github.com/ipavl/SongHistoryLogger>
+Author: ipavl
+
+GitHub: https://www.github.com/ipavl/SongHistoryLogger
 
 This program uses the iTunes COM interface to display current song information and
 optionally log it to an HTML file (songhistory.htm). This is useful if you want to
@@ -16,15 +18,9 @@ an extension of my previous "iTunes Play Count Setter" application (although thi
 written from scratch and is in C# instead of VB.NET), but that's the practical use case
 I came up with. :P
 
-Sample output screenshot (outdated): http://i.imgur.com/TPB7xoo.png
-(Note to self: Japanese characters don't show up correctly.)
+Sample output screenshot: http://i.imgur.com/O29WA5b.png (a wider screen will wrap less)
 
 -- ipavl
-	
-Known Bugs
-----------
-* Closing and re-opening iTunes may cause the program to stop updating iTunes data, but
-  restarting this application should fix it.
   
 License
 -------

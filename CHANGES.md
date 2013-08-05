@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+* v1.4.6 - August 4th, 2013
+
+	- better error handling if the connection to iTunes is interrupted
+	
+	- if iTunes is not running when the application starts, the program will attempt to start it
+
 * v1.4.5 - August 4th, 2013
 
 	- fixed bug where the option to disable logging wasn't working

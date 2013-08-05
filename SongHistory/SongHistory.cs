@@ -68,7 +68,7 @@ namespace SongHistory
             }
         }
 
-        private void tmrUpdate_Tick(object sender, EventArgs e)
+        private void tmrUpdateInfo_Tick(object sender, EventArgs e)
         {
             try
             {
@@ -92,8 +92,15 @@ namespace SongHistory
             catch (Exception ex)
             {
                 Debug.Print(ex.Message);
+
                 grpTrackInfo.ForeColor = Color.Red;
                 grpTrackInfo.Text = "iTunes isn't running or no track is selected!";
+
+                grpOptions.Enabled = true;
+                lblReconnect.Visible = true;
+                tmrUpdateInfo.Enabled = false;
+                tmrUpdateFile.Enabled = false;
+                chkLog.Checked = false;
             }
         }
 
@@ -143,6 +150,12 @@ namespace SongHistory
                     grpTrackInfo.Text = "No output folder is selected!";
                     tmrUpdateFile.Enabled = false;
                     chkLog.Checked = false;
+                }
+                else if (lblReconnect.Visible)  // Disallow logging if the bridge to iTunes is broken
+                {
+                    grpOptions.Enabled = true;
+                    chkLog.Checked = false;
+                    chkLog.Enabled = false;
                 }
                 else
                 {
@@ -449,6 +462,30 @@ namespace SongHistory
         private void SongHistory_Load(object sender, EventArgs e)
         {
             txtOutputFile.Text = Application.StartupPath;
+        }
+
+        private void lblOutputFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Process.Start(txtOutputFile.Text + lblOutputFile.Text);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+        }
+
+        private void lblReconnect_Click(object sender, EventArgs e)
+        {
+            grpTrackInfo.ForeColor = Color.Blue;
+            grpTrackInfo.Text = "Connecting to iTunes...";
+
+            tmrUpdateInfo.Enabled = true;
+            grpOptions.Enabled = true;
+            chkLog.Enabled = false;
+            chkLog.Checked = false;
+            lblReconnect.Visible = false;
         }
     }
 }
