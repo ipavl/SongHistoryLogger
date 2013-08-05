@@ -100,6 +100,7 @@ namespace SongHistory
                 lblReconnect.Visible = true;
                 tmrUpdateInfo.Enabled = false;
                 tmrUpdateFile.Enabled = false;
+                chkLog.Enabled = false;
                 chkLog.Checked = false;
             }
         }
