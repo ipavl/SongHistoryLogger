@@ -39,7 +39,7 @@ namespace SongHistory
         // The iTunes interface
         IiTunes iTunes = new iTunesAppClass();
 
-        // These will be used for checking to see if we need to update the file.
+        // These will be used for checking to see if we need to update the file
         private String lastSong;
         private String lastArtist;
         private String lastAlbum;
@@ -50,6 +50,18 @@ namespace SongHistory
         public SongHistory()
         {
             InitializeComponent();
+        }
+
+        /*
+         * This function makes sure the output file exists
+         */
+        private void FileExists()
+        {
+            Directory.CreateDirectory(txtOutputFile.Text);  // make sure the output folder exists
+            using (StreamWriter outFile = File.AppendText(txtOutputFile.Text + "\\songhistory.htm"))
+            {
+                outFile.Close();
+            }
         }
 
         private void cmdBrowse_Click(object sender, EventArgs e)
@@ -68,11 +80,41 @@ namespace SongHistory
             }
         }
 
+        private void SongHistory_Load(object sender, EventArgs e)
+        {
+            txtOutputFile.Text = Application.StartupPath;
+        }
+
+        private void lblOutputFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                FileExists();   // check to make sure the output folder/file exists
+                Process.Start(txtOutputFile.Text + lblOutputFile.Text);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+        }
+
+        private void lblReconnect_Click(object sender, EventArgs e)
+        {
+            grpTrackInfo.ForeColor = Color.Blue;
+            grpTrackInfo.Text = "Connecting to iTunes...";
+
+            tmrUpdateInfo.Enabled = true;
+            grpOptions.Enabled = true;
+            chkLog.Enabled = false;
+            chkLog.Checked = false;
+            lblReconnect.Visible = false;
+        }
+
         private void tmrUpdateInfo_Tick(object sender, EventArgs e)
         {
             try
             {
-                // Don't enable the logging checkbox if we don't have a output folder speciied.
+                // Don't enable the logging checkbox if we don't have an output folder specified
                 if (txtOutputFile.Text.Trim() == "")
                 {
                     chkLog.Enabled = false;
@@ -188,7 +230,7 @@ namespace SongHistory
                 grpTrackInfo.ForeColor = Color.Blue;
                 grpTrackInfo.Text = "Current Track Information";
 
-                Directory.CreateDirectory(txtOutputFile.Text);  // make sure the output folder exists
+                FileExists();   // check to make sure the output folder/file exists
                 StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
 
                 // Disable the folder selection controls and options
@@ -278,6 +320,7 @@ namespace SongHistory
         {
             try
             {
+                FileExists();   // check to make sure the output folder/file exists
                 StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
 
                 tmrUpdateFile.Enabled = false;
@@ -308,6 +351,7 @@ namespace SongHistory
                     WriteTableHeader();
                 }
 
+                FileExists();   // check to make sure the output folder/file exists
                 StreamWriter outFile = new StreamWriter(txtOutputFile.Text + "\\songhistory.htm", true);
 
                 // Output song information as HTML table row
@@ -458,35 +502,6 @@ namespace SongHistory
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void SongHistory_Load(object sender, EventArgs e)
-        {
-            txtOutputFile.Text = Application.StartupPath;
-        }
-
-        private void lblOutputFile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            try
-            {
-                Process.Start(txtOutputFile.Text + lblOutputFile.Text);
-            }
-            catch (Exception ex)
-            {
-                Debug.Print(ex.Message);
-            }
-        }
-
-        private void lblReconnect_Click(object sender, EventArgs e)
-        {
-            grpTrackInfo.ForeColor = Color.Blue;
-            grpTrackInfo.Text = "Connecting to iTunes...";
-
-            tmrUpdateInfo.Enabled = true;
-            grpOptions.Enabled = true;
-            chkLog.Enabled = false;
-            chkLog.Checked = false;
-            lblReconnect.Visible = false;
         }
     }
 }
